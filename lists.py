@@ -91,3 +91,24 @@ back_end = ['Node','Express', 'MongoDB']
 
 front_end.extend(back_end)
 print(front_end)
+
+ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24]
+
+ages.sort()
+min_age = ages[0]
+max_age = ages[-1]
+med_age = (ages[4] + ages[5]) / 2
+
+sum = 0
+count = 0
+avg = 0
+for i in range(len(ages)):
+    sum += ages[i]
+    count = count + 1
+avg = sum / count
+print(avg)
+
+range = max_age - min_age
+
+
+
