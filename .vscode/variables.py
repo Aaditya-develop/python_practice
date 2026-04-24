@@ -69,5 +69,3 @@ floor_division = num_one // num_two
 
 radius = 30
 #area_of_circle = 
-
-print("new")

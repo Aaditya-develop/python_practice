@@ -22,11 +22,10 @@ print(company.capitalize())
 print(company.title())
 print(company.swapcase())
 
-#9
+#9lin
 print(company[7:])
 
 for i in range(5):
-    print("Hello")
-    
-    
-print("New")
+    print("New Change")
+
+print("Change")

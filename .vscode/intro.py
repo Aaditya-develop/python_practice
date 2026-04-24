@@ -12,5 +12,3 @@ print(type("asano"))
 print(type([1,2,3]))
 print(type({"hey": "hi"}))
 print(type({9.6,6.8,3.2}))
-
-print("new")

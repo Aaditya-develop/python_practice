@@ -54,4 +54,3 @@ print(len(stringA))
 floatStringA = float(len(stringA))
 print(floatStringA)
 
-print("New")
