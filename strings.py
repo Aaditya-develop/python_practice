@@ -25,3 +25,5 @@ print(company.swapcase())
 #9
 print(company[7:])
 
+for i in range(5):
+    print("Hello")
