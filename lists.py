@@ -2,6 +2,7 @@ print("Lists")
 
 #Collection of different Data Types
 #It is ordered and modifiable
+#Full flexibility
 
 lst = list()
 print(len(lst)) #Empty list

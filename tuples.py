@@ -1,6 +1,7 @@
 #Once a tuple is created, we can not change its values
 #You can only delete the entire tuple, not a singular item
 #You can change tuple to list if you want to edit it
+#Fixed Data that doesnt change
 #Everything else is the same 
 
 empty_tuple = tuple()
