@@ -32,8 +32,10 @@ def summarize_text(text):
         ]
     )
     return response.choices[0].message.content
+
+
 # Test it
-answer = ask_agent("What are tokens used for in using openAI?")
+answer = ask_agent("How do you change your public repository to priate?")
 print(answer)
 
 print("Q2\n\n\n\n\n")
