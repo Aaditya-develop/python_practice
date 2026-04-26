@@ -32,3 +32,5 @@ print(dct['key6']) #False
 #Removing keys
 person.pop('key2') #Removes specifies item
 person.popitem() #removes last item
+
+print(persons.values())
