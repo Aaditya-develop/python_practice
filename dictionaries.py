@@ -27,10 +27,32 @@ print(person)
 dct['key1'] = 'value-one'
 
 #Check iof key is in dict
-print(dct['key6']) #False
+#print(dct['key6']) #False
 
 #Removing keys
-person.pop('key2') #Removes specifies item
+person.pop('last_name') #Removes specifies item
 person.popitem() #removes last item
 
-print(persons.values())
+print(person.values())
+
+#Exercises
+dog = {}
+dog['name'] = 'joe'
+dog['color'] = 'black'
+dog['breed'] = 'doodle'
+dog['legs'] = 4
+dog['age'] = 5
+
+student = {'first_name': 'Aadi', 'last_name':'Chandola','age': 20, 'married': False, 'skills': ['Python', 'AI', 'ML'], 'country': 'US', 'city': 'Monmouth Jct', 'address': '190 Deans Lane'}
+print(len(student))
+skills_val = student['skills']
+print(type(skills_val))
+student['skills'].append(['Java', 'LangChain'])
+
+print(student['skills'])
+
+lst_key = list(student.keys())
+print(lst_key)
+
+lst_values = list(student.values())
+print("Values", lst_values)
