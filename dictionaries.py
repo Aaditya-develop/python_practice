@@ -56,3 +56,9 @@ print(lst_key)
 
 lst_values = list(student.values())
 print("Values", lst_values)
+
+tpl = student.items()
+
+del student['age']
+
+del dct
