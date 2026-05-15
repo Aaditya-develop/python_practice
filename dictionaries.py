@@ -49,6 +49,12 @@ skills_val = student['skills']
 print(type(skills_val))
 student['skills'].append(['Java', 'LangChain'])
 
+#Loop it
+for std in student:
+    if std == 'skills':
+        for skill in student['skills']:
+            print(skill)
+
 print(student['skills'])
 
 lst_key = list(student.keys())
@@ -59,6 +65,6 @@ print("Values", lst_values)
 
 tpl = student.items()
 
-del student['age']
+#del student['age']
 
 del dct

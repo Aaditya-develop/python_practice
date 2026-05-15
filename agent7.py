@@ -49,6 +49,12 @@ def tool_search(state: AgentState)-> AgentState:
 def retrieve(state: AgentState) -> AgentState:
     question = state["question"]
     rtrv = vs.search(question, 2)
+    #Debug, see chunks taken
+    print("DEBUG")
+    for i, doc in enumerate(rtrv):
+        print(f"\n-- Chunk {i+1} --")
+        print({doc.page_content})
+    print("DEBUG\n\n")
     return{**state, "documents": rtrv}
 
 def grade(state: AgentState) -> AgentState:
@@ -75,6 +81,14 @@ def should_grade(state: AgentState) -> str:
         return "generate"
     else:
         return "web_search"
+    
+def should_route(state: AgentState) -> str:
+    if state["is_retrieval"] == "search":
+        return "search"
+    elif state["is_retrieval"] == "retrieve":
+        return "retrieve"
+    else:
+        return "generate"
 
 def generate(state: AgentState) -> AgentState:
     question = state["question"]
@@ -113,3 +127,70 @@ def generate(state: AgentState) -> AgentState:
     })
     return {**state, "answer": response.content}
 
+
+workflow = StateGraph(AgentState)
+workflow.add_node("decide", decide)
+workflow.add_node("retrieve", retrieve)
+workflow.add_node("tool_search", tool_search)
+workflow.add_node("generate", generate)
+workflow.add_node("grade", grade)
+
+workflow.set_entry_point("decide")
+workflow.add_edge("retrieve", "grade")
+workflow.add_conditional_edges(
+    "decide",
+    should_route,{
+        "search": "tool_search",
+        "retrieve": "retrieve",
+        "generate": "generate"
+    }
+)
+workflow.add_conditional_edges(
+    "grade",
+    should_grade, {
+        "web_search": "tool_search",
+        "generate": "generate"
+    }
+)
+
+workflow.add_edge("tool_search", "generate")
+workflow.add_edge("generate", END)
+
+app = workflow.compile()
+
+test_question = "In Table 3, what is the BLEU score for the model variation where d_k is 16?"
+initial_state = app.invoke({
+    "question": test_question,
+    "documents": [],
+    "answer": "",
+    "is_retrieval": "",
+    "chat_history": [], # Keep this empty to test retrieval in isolation
+    "tool_result": "",
+    "documents_relevant": False
+})
+result = app.invoke(initial_state)
+for i, doc in enumerate(initial_state["documents"]):
+    print(f"\n--- Chunk {i+1} Text Content ---")
+    print(doc.page_content)
+
+def looped_run():
+    chat_history = []
+    while True:
+        question = input("You: ")
+        if "quit" in question:
+            break
+        
+        response = app.invoke({
+            "question": question,
+            "documents": [],
+            "answer": "",
+            "is_retrieval": "",
+            "chat_history": chat_history,
+            "tool_result": "",
+            "documents_relevant": False
+        })
+        
+        chat_history = response["chat_history"]
+        print("Agent:", response["answer"])
+        print()
+    
